@@ -1,7 +1,7 @@
 package com.example.demo.component;
 
-import com.example.demo.entity.RoleName;
 import com.example.demo.entity.User;
+import com.example.demo.entity.enums.RoleName;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +30,20 @@ public class DataLoader implements CommandLineRunner {
         if (initialMode.equals("always")) {
 
             userRepository.save(new User(
-                    "adminrole",
+                    "Temubek",
+
+                    "Zarifov Temurbek",
                     passwordEncoder.encode("password"),
                     roleRepository.findAll()));
-            userRepository.save(new User(
-                    "userrole",
-                    passwordEncoder.encode("password1"),
-                    roleRepository.findAllByName(RoleName.ROLE_USER)));
+
+                    userRepository.save(new User(
+                            "giyos",
+
+                            "Zarifov",
+                            passwordEncoder.encode("password1"),
+                            roleRepository.findAllByName(RoleName.ROLE_ADMIN)));
+
+
         }
     }
 }

@@ -17,11 +17,13 @@ import java.util.UUID;
 public class ProductController
 {
      private final ProductRepository productRepository;
-    public ProductController(ProductRepository productRepository) {
+
+    public ProductController(ProductRepository productRepository)
+    {
         this.productRepository = productRepository;
     }//equals @AutoWired
 
-    @GetMapping(value = "/getstudents")
+    @GetMapping(value = "/getproducts")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public List<Product> getStudents() {
 
@@ -29,7 +31,7 @@ public class ProductController
 
     }
 
-    @PostMapping(value = "/addstudent")
+    @PostMapping(value = "/addproduct")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addProduct(@RequestBody Product product)
     {
@@ -37,7 +39,7 @@ public class ProductController
         return "This is added product : "+product.getName();
     }
 
-    @GetMapping(value = "/getstudents/{id}")
+    @GetMapping(value = "/getproduct/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Optional<Product> getStudent(@PathVariable UUID id) {
 
@@ -45,17 +47,15 @@ public class ProductController
 
     }
 
-    @DeleteMapping(value = "/deletestudent/{id}")
+    @DeleteMapping(value = "/deleteproduct/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteStudent(@PathVariable UUID id) {
 
         productRepository.deleteById(id);
-
         return "This is deleted product :"+ id;
-
     }
 
-    @PutMapping(value = "/updatestudent")
+    @PutMapping(value = "/updateproduct")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
         public ResponseEntity<Product> updating(@PathVariable(value = "id") UUID myProductId,
                                                 @Valid @RequestBody Product product)

@@ -26,7 +26,8 @@ class SpringSecurityAuditAwareImpl implements AuditorAware<User> {
     public Optional<User> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication == null || !authentication.isAuthenticated()
-                || "anonymousUser".equals("" + authentication.getPrincipal())))
+                || "anonymousUser".equals("" + authentication.getPrincipal()))
+        )
         {
             return Optional.of((User)authentication.getPrincipal());
         }

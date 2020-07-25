@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
-//import com.temurbek.demo.payload.ApiResponse;
-//import com.temurbek.demo.payload.ReqSignUp;
 
 @Service
 public class AuthService implements UserDetailsService {
@@ -38,15 +36,20 @@ public class AuthService implements UserDetailsService {
                         () -> new UsernameNotFoundException("This username does not exist: "
                                 +username));
     }
-    public UserDetails loadUserById(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(
-                () -> new UsernameNotFoundException("User id not found: " +userId));
+    public UserDetails loadUserById(UUID userId)
+    {
+        return userRepository.findById(userId).orElseThrow
+                (() -> new UsernameNotFoundException("User id not found: " +userId));
     }
 
-    public ApiResponse register(ReqSignUp reqSignUp){
+
+
+    public ApiResponse register(ReqSignUp reqSignUp)
+    {
         Optional<User> optionalUser = userRepository.findByUsername(reqSignUp.getUsername());
 
-        if (optionalUser.isPresent()){
+        if (optionalUser.isPresent())
+        {
             return new ApiResponse("This username is already existed!",false);
         }
         else
@@ -56,7 +59,8 @@ public class AuthService implements UserDetailsService {
                             reqSignUp.getUsername(),
                             reqSignUp.getFullname(),
                             passwordEncoder.encode(reqSignUp.getPassword()),
-                            roleRepository.findAllByName(RoleName.ROLE_USER)));
+                            roleRepository.findAllByName(RoleName.ROLE_USER))
+            );
             return new ApiResponse("You have taken .", true);
         }
     }
